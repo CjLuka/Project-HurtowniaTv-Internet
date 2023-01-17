@@ -1,0 +1,27 @@
+<head>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+
+<body>
+  <form th:action="@{/dodajproduktdobazy}" th:object="${Product}" method="post">
+    <div class="text-center">
+      <a href="/index" class="btn btn-outline-info btn-sm pull-right">Strona główna</a>
+    </div>
+    
+    <div class="form-group">
+      <label >Nazwa produktu</label>
+      <input class="form-control" placeholder="Podaj nazwe" th:field="*{Name}" required>
+    </div>
+    <div class="form-group">
+      <label for="Cena" >Cena</label>
+      <input type="number" class="form-control"placeholder="Cena" th:field="*{Price}" required>
+    </div>
+    <p class="status"></p>
+    <!-- <button type="button" class="btn btn-primary">Dodaj produkt</button> -->
+    <input type="submit" value="Dodaj nowy produkt" />
+    <!-- <a th:href="'/dodajproduktdobazy'"><Button type="button">Kupuje i place</Button></a> -->
+  </form>
+</body>

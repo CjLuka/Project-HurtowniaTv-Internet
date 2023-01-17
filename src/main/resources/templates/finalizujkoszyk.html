@@ -1,0 +1,48 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+
+<form>
+<!-- <form th:action="@{/zlozzamowienie/{id}}" method="post"> -->
+    <div class="container">
+<br>  <p class="text-center">Przejdz do <a href="/index">strony głównej</a></p>
+<p class="text-center">Przejdz do <a href="/wyswietlprodukty">wszystkich produktow</a></p>
+<hr>
+
+<tr  th:each ="Koszyk : ${zawartoscKoszyka}" class="col">   
+
+<div class="card">
+<table class="table table-hover shopping-cart-wrap">
+<thead class="text-muted">
+<tr>
+  <th scope="col">Nazwa</th>
+  <th scope="col">Kwota</th>  
+</tr>
+</thead>
+<tbody>
+
+<tr>
+	<td>
+
+	<div><b th:utext="${Koszyk.Name}"></b> </div>
+
+	</td>
+	<td> 
+    <div><b th:utext="${Koszyk.Price}"></b> </div>
+	</td>
+   
+
+<div class="text-center">
+  <!-- <a th:href="'/koszyk/'+${Package.id}"><Button>Kupuje i place</Button></a> -->
+  <a th:href="'/zlozzamowienie/'+${Koszyk.id}"><Button type="button">Kupuje i place</Button></a>
+  <!-- <a href="/index"><Button>Kupuje i place</Button></a> -->
+  
+  <!-- <a th:href="/zlozzamowienie"><Button>Kupuje i place</Button></a> -->
+</div>
+</form>
+
+
+

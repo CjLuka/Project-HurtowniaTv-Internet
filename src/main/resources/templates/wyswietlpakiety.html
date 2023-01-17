@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+<head> 
+  <link rel="stylesheet" href="/src/main/resources/static/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Produkty</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+</head>
+<body>
+
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<script src="https://use.fontawesome.com/c560c025cf.js"></script>
+    <div class="container">
+   <div class="card shopping-cart">
+            <div class="card-header bg-dark text-light">
+                <i  aria-hidden="true"></i>
+                Wszystkie pakiety
+                
+                <a href="/finalizujkoszyk" class="btn btn-outline-info btn-sm pull-right">Finalizuj zamówienie!</a>
+                <a href="/index" class="btn btn-outline-info btn-sm pull-right">Strona główna</a>
+                <div class="clearfix"></div>
+            </div>
+            <div class="card-body">
+                    <!-- PRODUCT -->
+                    <tr  th:each ="Package : ${wyswietlpakiety}" class="col">   
+                    <div class="row">
+                        
+                        <div class="col-12 text-sm-center col-sm-12 text-md-left col-md-6">
+                            <!-- <h4 class="product-name"><strong>Product Name</strong></h4> -->
+                           <!-- <select th:field="*{zamowienie}"> -->
+                                <td scope="col" class="table table-dark"> <b th:utext="${Package.Name}"></b> </td>
+                            <!-- </select> -->
+                             
+                            <h4 class="active">
+                                <a>Bardzo niskie ceny! Kupuj w pakiecie!</a>
+                            </h4>
+                        </div>
+                        <div class="col-12 col-sm-12 text-sm-center col-md-4 text-md-right row">
+                            <div class="col-3 col-sm-3 col-md-6 text-md-right" style="padding-top: 5px">
+                                <!-- <h6><strong>25.00 <span class="text-muted">x</span></strong></h6> -->
+                                <td scope="col" class="table table-dark"> <b th:utext="${Package.PriceForPackage}"></b> </td>
+
+                            </div>
+                            <div class="col-4 col-sm-4 col-md-4">
+                                <div class="quantity">
+                                </div>
+                            </div>
+                            <div class="col-2 col-sm-2 col-md-2 text-right">
+                                
+                            </div>
+                            <a>Cena zawiera dekoder router</a>
+                        </div>
+                        <a th:href="'/koszyk/'+${Package.id}"><Button>Dodaj do koszyka</Button></a>
+                        <!-- <input class="btn btn-outline-danger btn-xs" type="submit" value="Dodaj do koszyka"/> -->
+                        <!-- <button type="button" class="btn btn-outline-danger btn-xs">Dodaj do koszyka</button> -->
+                    </div>
+
+                    <hr>
+
+</body>
+</html>
+
