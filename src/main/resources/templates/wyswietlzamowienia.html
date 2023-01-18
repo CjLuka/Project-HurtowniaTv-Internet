@@ -6,19 +6,19 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
 
 <form>
-  <div class="p-3 mb-2 bg-primary text-white text-center">Wszystkie platnosci</div>
+  <div class="p-3 mb-2 bg-primary text-white text-center">Wszystkie zamowienia</div>
     <div class="container">
 <br>  <p class="text-center">Przejdz do <a href="/index">strony głównej</a></p>
-<p class="text-center">Przejdz do <a href="/wyswietlzamowienia">wszystkich zamowien</a></p>
+<p class="text-center">Przejdz do <a href="/wyswietlplatnosci">wszystkich platnosci</a></p>
 <hr>
-<tr  th:each ="Platnosci : ${wyswietlplatnosci}" class="col"> 
+<tr  th:each ="Zamowienia : ${wyswietlzamowienia}" class="col"> 
 
 <div class="card">
 <table class="table table-hover shopping-cart-wrap">
 <thead class="text-muted">
 <tr>
-  <th scope="col">Id platnosci</th>
   <th scope="col">Id zamowienia</th>
+  <th scope="col">Id Produktu</th>
   <th scope="col">Kwota</th>  
 </tr>
 </thead>
@@ -27,16 +27,16 @@
 <tr>
 	<td>
 
-	<div><b th:utext="${Platnosci.id}"></b> </div>
+	<div><b th:utext="${Zamowienia.Id}"></b> </div>
 
 	</td>
   <td>
 
-    <div><b th:utext="${Platnosci.Zamowienia.Id}"></b> </div>
+    <div><b th:utext="${Zamowienia.Product.id}"></b> </div>
   
     </td>
 	<td> 
-    <div><b th:utext="${Platnosci.Price}"></b> </div>
+    <div><b th:utext="${Zamowienia.Price}"></b> </div>
 	</td>
    
 

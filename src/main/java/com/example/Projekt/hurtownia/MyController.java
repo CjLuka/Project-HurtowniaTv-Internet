@@ -62,6 +62,12 @@ public class MyController {
     model.addAttribute("wyswietlplatnosci",platnosciRepo.findAll());
     return "wyswietlplatnosci";
   }
+  @RequestMapping(value = "/wyswietlzamowienia", method = RequestMethod.GET)
+  public String wyswietlZamowienia(Model model) {
+    //model.addAttribute("Package", new Package());
+    model.addAttribute("wyswietlzamowienia",zamowieniaRepo.findAll());
+    return "wyswietlzamowienia";
+  }
   @RequestMapping(value = "/index", method = RequestMethod.GET)
   public String stronaGlowna(Model model) {
 
