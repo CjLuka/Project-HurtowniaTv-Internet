@@ -50,6 +50,18 @@ public class MyController {
     model.addAttribute("wyswietlprodukty",productRepo.findAll());
     return "wyswietlprodukty";
   }
+  @RequestMapping(value = "/wyswietlproduktybezzakupu", method = RequestMethod.GET)
+  public String wyswietlProduktybezzakupu(Model model) {
+    model.addAttribute("Product", new Product());
+    model.addAttribute("wyswietlprodukty",productRepo.findAll());
+    return "wyswietlproduktybezzakupu";
+  }
+  @RequestMapping(value = "/wyswietlproduktyforadmin", method = RequestMethod.GET)
+  public String wyswietlProduktyforadmin(Model model) {
+    model.addAttribute("Product", new Product());
+    model.addAttribute("wyswietlprodukty",productRepo.findAll());
+    return "wyswietlproduktyforadmin";
+  }
   //@RequestMapping(value = "/wyswietlpakiety", method = RequestMethod.GET)
   //public String wyswietlPakiety(Model model) {
   //  //model.addAttribute("Package", new Package());
@@ -69,13 +81,17 @@ public class MyController {
     return "wyswietlzamowienia";
   }
   @RequestMapping(value = "/index", method = RequestMethod.GET)
-  public String stronaGlowna(Model model) {
-
+  public String stronaGlowna(Model model, Authentication auth) {
+    System.out.println(auth);
     return "index";
   }
   @RequestMapping(value = "/indexforadmin", method = RequestMethod.GET)
-  public String stronaGlownadlaadmina(Model model) {
+  public String stronaGlownadlaadmina(Model model, Authentication auth) {
     return "indexforadmin";
+  }
+  @RequestMapping(value = "/indexforgosc", method = RequestMethod.GET)
+  public String stronaGlownadlagosc(Model model, Authentication auth) {
+    return "indexforgosc";
   }
   @RequestMapping(value = "/koszyk/{id}", method = RequestMethod.GET)
   public String wyswietlkoszyk(Model model, @PathVariable("id") Integer id, HttpSession session) {
@@ -137,15 +153,19 @@ public class MyController {
   @RequestMapping(value = "/", method = RequestMethod.GET)
     public String logincase(Model model, Authentication auth){
         if(auth == null){
+            System.out.println("auth=null");
             return "index";
         }
-        else if(auth.getAuthorities().toString().equals("[ADMIN]")){
-            return "index";
+        else if(auth.getAuthorities().toString().equals("[ROLE_ADMIN]")){
+            System.out.println("auth=admin");
+            return "indexforadmin";
         }
-        else if(auth.getAuthorities().toString().equals("[GOSC]")){
-            return "index";
+        else if(auth.getAuthorities().toString().equals("[ROLE_GOSC]")){
+            System.out.println("auth=gosc");
+            return "indexforgosc";
         }
         else{
+            System.out.println("auth=else");
             return "index";
         }
     }
