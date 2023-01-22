@@ -57,10 +57,14 @@ public class MyController {
     return "wyswietlproduktybezzakupu";
   }
   @RequestMapping(value = "/wyswietlproduktyforadmin", method = RequestMethod.GET)
-  public String wyswietlProduktyforadmin(Model model) {
-    model.addAttribute("Product", new Product());
-    model.addAttribute("wyswietlprodukty",productRepo.findAll());
-    return "wyswietlproduktyforadmin";
+  public String wyswietlProduktyforadmin(Model model, Authentication auth) {
+    if(auth.getAuthorities().toString().equals("[ROLE_ADMIN]")){
+      model.addAttribute("Product", new Product());
+      model.addAttribute("wyswietlprodukty",productRepo.findAll());
+      return "wyswietlproduktyforadmin";
+    }
+   
+    return "nieposiadaszuprawnien";
   }
   //@RequestMapping(value = "/wyswietlpakiety", method = RequestMethod.GET)
   //public String wyswietlPakiety(Model model) {
@@ -69,16 +73,22 @@ public class MyController {
   //  return "wyswietlpakiety";
   //}
   @RequestMapping(value = "/wyswietlplatnosci", method = RequestMethod.GET)
-  public String wyswietlPlatnosci(Model model) {
+  public String wyswietlPlatnosci(Model model, Authentication auth) {
     //model.addAttribute("Package", new Package());
-    model.addAttribute("wyswietlplatnosci",platnosciRepo.findAll());
-    return "wyswietlplatnosci";
+    if(auth.getAuthorities().toString().equals("[ROLE_ADMIN]")){
+      model.addAttribute("wyswietlplatnosci",platnosciRepo.findAll());
+      return "wyswietlplatnosci";
+    }
+    return "nieposiadaszuprawnien";
   }
   @RequestMapping(value = "/wyswietlzamowienia", method = RequestMethod.GET)
-  public String wyswietlZamowienia(Model model) {
+  public String wyswietlZamowienia(Model model, Authentication auth) {
     //model.addAttribute("Package", new Package());
-    model.addAttribute("wyswietlzamowienia",zamowieniaRepo.findAll());
-    return "wyswietlzamowienia";
+    if(auth.getAuthorities().toString().equals("[ROLE_ADMIN]")){
+      model.addAttribute("wyswietlzamowienia",zamowieniaRepo.findAll());
+      return "wyswietlzamowienia";
+    }
+    return "nieposiadaszuprawnien";
   }
   @RequestMapping(value = "/index", method = RequestMethod.GET)
   public String stronaGlowna(Model model, Authentication auth) {
@@ -87,7 +97,10 @@ public class MyController {
   }
   @RequestMapping(value = "/indexforadmin", method = RequestMethod.GET)
   public String stronaGlownadlaadmina(Model model, Authentication auth) {
-    return "indexforadmin";
+    if(auth.getAuthorities().toString().equals("[ROLE_ADMIN]")){
+      return "indexforadmin";
+    }
+    return "nieposiadaszuprawnien";
   }
   @RequestMapping(value = "/indexforgosc", method = RequestMethod.GET)
   public String stronaGlownadlagosc(Model model, Authentication auth) {
@@ -135,13 +148,16 @@ public class MyController {
     }
     //zamowienia.setPackageProductsId(productRepo.findById(Id));
     //model.addAttribute("dodajdokoszyka", Product)
-    return "index";
+    return "nieposiadaszuprawnien";
   }
   @RequestMapping(value = "/dodajprodukt", method = RequestMethod.GET)
-  public String dodajprodukt(Model model, Product product) {
-    model.addAttribute("Product", product);
-    //productRepo.save(product);
-    return "dodajprodukt";
+  public String dodajprodukt(Model model, Product product, Authentication auth) {
+    if(auth.getAuthorities().toString().equals("[ROLE_ADMIN]")){
+      model.addAttribute("Product", product);
+      //productRepo.save(product);
+      return "dodajprodukt";
+    }
+    return "nieposiadaszuprawnien";
   }
   @RequestMapping(value = "/dodajproduktdobazy", method = RequestMethod.POST)
   public String dodajproduktdobazy(Model model, Product product) {
@@ -149,7 +165,10 @@ public class MyController {
     productRepo.save(product);
     return "redirect:/dodajprodukt";
   }
- 
+  @RequestMapping(value = "/nieposiadaszuprawnien", method = RequestMethod.GET)
+  public String nieposiadaszuprawnien(Model model) {
+    return "nieposiadaszuprawnien";
+  }
   @RequestMapping(value = "/", method = RequestMethod.GET)
     public String logincase(Model model, Authentication auth){
         if(auth == null){
