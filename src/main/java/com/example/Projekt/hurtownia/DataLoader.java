@@ -37,10 +37,10 @@ public class DataLoader {
     //personRepo.save(person2);
     //personRepo.save(person3);
     ////Tworzenie produktow
-    //Product product1 = new Product("Internet 20gb", 50.00);
-    //Product product2 = new Product("Internet 40gb", 100.00);
-    //Product product3 = new Product("Tv - 100 kanalow", 25.00);
-    //Product product4 = new Product("Tv - 200 kanalow", 50.00);
+    //Product product1 = new Product("Eleven Sport", 25.00);
+    //Product product2 = new Product("Canal + Sport", 30.00);
+    //Product product3 = new Product("40mb/s internetu w play", 45.00);
+    //Product product4 = new Product("80mb/s w t-mobile", 80.00);
     //productRepo.save(product1);
     //productRepo.save(product2);
     //productRepo.save(product3);

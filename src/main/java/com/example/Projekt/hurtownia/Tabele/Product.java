@@ -18,6 +18,8 @@ public class Product {
   private Double Price;
   @OneToMany(mappedBy = "product")
   private List<Zamowienia> productId  = new ArrayList<Zamowienia>();
+  @OneToMany(mappedBy = "product")
+  private List<Platnosci> zamowienieId  = new ArrayList<Platnosci>();
   public Product(String name, Double price) {
     Name = name;
     Price = price;
@@ -48,4 +50,16 @@ public class Product {
   public void setName(String name) {
     Name = name;
   }
+  public List<Platnosci> getZamowienieId() {
+    return zamowienieId;
+  }
+  public void setZamowienieId(List<Platnosci> zamowienieId) {
+    this.zamowienieId = zamowienieId;
+  }
+  @Override
+  public String toString() {
+    return "Product [id=" + id + ", Name=" + Name + ", Price=" + Price + "]";
+  }
+  
+  
 }

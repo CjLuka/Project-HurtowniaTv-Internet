@@ -15,19 +15,12 @@ public class Zamowienia {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer Id;
   private double price;
-  @ManyToOne
+  //@ManyToOne
   //@JoinColumn(name = "PersonId")
-  private Person person;
+  //private Person person;
   @ManyToOne
   private Product product;
-  private Integer IdProductu;
-  public Integer getIdProductu() {
-    return IdProductu;
-  }
-
-  public void setIdProductu(Integer idProductu) {
-    IdProductu = idProductu;
-  }
+  
 
   //@OneToMany(mappedBy = "zamowienia")
   //private List<Platnosci> zamowienieId = new ArrayList<Platnosci>();
@@ -46,25 +39,12 @@ public class Zamowienia {
   public void setPrice(double price) {
     this.price = price;
   }
-  public Person getPerson() {
-    return person;
-  }
-  public void setPerson(Person person) {
-    this.person = person;
-  }
-  
- // public List<Platnosci> getZamowienieId() {
- //   return zamowienieId;
- // }
- // public void setZamowienieId(List<Platnosci> zamowienieId) {
- //   this.zamowienieId = zamowienieId;
- // }
    public Zamowienia() {
   }
   public Zamowienia(double price,Integer id) {
     this.price = price;
     //this.person = person;
-    this.IdProductu = id;
+    //this.IdProductu = id;
   }
 
   public Zamowienia(double price, Product product) {

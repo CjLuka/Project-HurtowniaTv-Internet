@@ -1,5 +1,6 @@
 package com.example.Projekt.hurtownia;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
@@ -17,6 +18,7 @@ import com.example.Projekt.hurtownia.Repo.ProductRepo;
 import com.example.Projekt.hurtownia.Repo.ZamowieniaRepo;
 //import com.example.Projekt.hurtownia.Tabele.Package;
 import com.example.Projekt.hurtownia.Tabele.Person;
+import com.example.Projekt.hurtownia.Tabele.Platnosci;
 import com.example.Projekt.hurtownia.Tabele.Product;
 import com.example.Projekt.hurtownia.Tabele.Zamowienia;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
@@ -47,7 +49,11 @@ public class MyController {
   @RequestMapping(value = "/wyswietlprodukty", method = RequestMethod.GET)
   public String wyswietlProdukty(Model model) {
     model.addAttribute("Product", new Product());
-    model.addAttribute("wyswietlprodukty",productRepo.findAll());
+    //model.addAttribute("wyswietlprodukty",productRepo.findAll());
+    
+    
+    model.addAttribute("wyswietlprodukty",productRepo.findByIdNotIn(productRepo.FindBySqlQuery1()));
+    System.out.println("Test" + productRepo.FindBySqlQuery1());
     return "wyswietlprodukty";
   }
   @RequestMapping(value = "/wyswietlproduktybezzakupu", method = RequestMethod.GET)
@@ -60,6 +66,9 @@ public class MyController {
   public String wyswietlProduktyforadmin(Model model, Authentication auth) {
     if(auth.getAuthorities().toString().equals("[ROLE_ADMIN]")){
       model.addAttribute("Product", new Product());
+      Platnosci test = new Platnosci();
+      System.out.println(test.getDataOd());
+      System.out.println(test.getDataDo());
       model.addAttribute("wyswietlprodukty",productRepo.findAll());
       return "wyswietlproduktyforadmin";
     }
@@ -78,6 +87,15 @@ public class MyController {
     if(auth.getAuthorities().toString().equals("[ROLE_ADMIN]")){
       model.addAttribute("wyswietlplatnosci",platnosciRepo.findAll());
       return "wyswietlplatnosci";
+    }
+    return "nieposiadaszuprawnien";
+  }
+  @RequestMapping(value = "/wyswietlmojezamowienia", method = RequestMethod.GET)
+  public String wyswietlMojeZamowienia(Model model, Authentication auth) {//dokoncz wyswietlanie tranaskcji usera
+    //model.addAttribute("Package", new Package());
+    if(auth.getAuthorities().toString().equals("[ROLE_GOSC]")){
+      model.addAttribute("wyswietlzamowieniausera",platnosciRepo.findAll());
+      return "wyswietlmojezamowienia";
     }
     return "nieposiadaszuprawnien";
   }
@@ -111,7 +129,7 @@ public class MyController {
     System.out.println(productRepo.findByIdIs(id));
     koszyk.dodajdokoszyka(productRepo.findByIdIs(id));
     System.out.println(koszyk);
-    model.addAttribute("wyswietlprodukty",productRepo.findAll());
+    model.addAttribute("wyswietlprodukty",productRepo.findByIdNotIn(productRepo.FindBySqlQuery1()));
     return "wyswietlprodukty";
   }
   @RequestMapping(value = "/zamawiam/{id}", method = RequestMethod.GET)
@@ -144,11 +162,15 @@ public class MyController {
       //nowezamowienie.add(new Zamowienia(p.getPrice(),new Person(), p.getId()));
       Zamowienia zamowienia2 = new Zamowienia(p.getPrice(), product);
       zamowieniaRepo.save(zamowienia2);//zapisanie kupionego produktu w bazie
+      Platnosci platnosc1 = new Platnosci(zamowienia2.getPrice(), zamowienia2);
+      platnosc1.setProduct(product);
+      zamowienia2.setProduct(product);
+      platnosciRepo.save(platnosc1);
       koszyk.usunZListy(p);
     }
     //zamowienia.setPackageProductsId(productRepo.findById(Id));
     //model.addAttribute("dodajdokoszyka", Product)
-    return "nieposiadaszuprawnien";
+    return "finalizujkoszyk";
   }
   @RequestMapping(value = "/dodajprodukt", method = RequestMethod.GET)
   public String dodajprodukt(Model model, Product product, Authentication auth) {

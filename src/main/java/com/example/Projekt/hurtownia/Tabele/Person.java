@@ -21,8 +21,8 @@ public class Person {
   private String Email;
   private String Rola;
   private String Password;
-  @OneToMany(mappedBy = "person")
-  private List<Zamowienia> personId = new ArrayList<Zamowienia>();
+  //@OneToMany(mappedBy = "person")
+  //private List<Zamowienia> personId = new ArrayList<Zamowienia>();
 
   
 
@@ -42,12 +42,12 @@ public class Person {
   public void setId(Integer id) {
     Id = id;
   }
-  public List<Zamowienia> getPersonId() {
-    return personId;
-  }
-  public void setPersonId(List<Zamowienia> personId) {
-    this.personId = personId;
-  }
+  //public List<Zamowienia> getPersonId() {
+  //  return personId;
+  //}
+  //public void setPersonId(List<Zamowienia> personId) {
+  //  this.personId = personId;
+  //}
   public String getFirstName() {
     return FirstName;
   }
